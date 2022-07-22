@@ -44,9 +44,9 @@ export default class LoaderScene extends Container implements IScene {
   }
 
   private gameLoaded(): void {
-    //main scene should be displayed after loading completes
+    //loading scene should be displayed after loading completes
     // SceneManager.changeScene(
-    //   new MainScene(SceneManager.width, SceneManager.height, SceneManager)
+    //   new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
     // );
   }
 

@@ -1,7 +1,8 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 
-import LobbyScene from "../lobbyScene/LobbyScene";
+// import LobbyScene from "../lobbyScene/LobbyScene";
+import GameScene from "../gameScene/GameScene";
 
 export default class LoaderScene extends Container implements IScene {
   private loaderBar: Container;
@@ -47,7 +48,8 @@ export default class LoaderScene extends Container implements IScene {
 
   private gameLoaded(): void {
     SceneManager.changeScene(
-      new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
+      new GameScene(SceneManager, SceneManager.width, SceneManager.height)
+      // new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
     );
   }
 

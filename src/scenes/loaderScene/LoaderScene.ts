@@ -1,7 +1,7 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 
-import { assets } from "../../assets";
+import LobbyScene from "../lobbyScene/LobbyScene";
 
 export default class LoaderScene extends Container implements IScene {
   private loaderBar: Container;
@@ -30,7 +30,9 @@ export default class LoaderScene extends Container implements IScene {
       (SceneManager.height - this.loaderBar.height) / 2;
     this.addChild(this.loaderBar);
 
-    Loader.shared.add(assets);
+    Loader.shared
+      .add("../../resources/bird.json")
+      .add("../../resources/environment.json");
 
     Loader.shared.onProgress.add(this.downloadProgress, this);
     Loader.shared.onComplete.once(this.gameLoaded, this);
@@ -44,10 +46,9 @@ export default class LoaderScene extends Container implements IScene {
   }
 
   private gameLoaded(): void {
-    //loading scene should be displayed after loading completes
-    // SceneManager.changeScene(
-    //   new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
-    // );
+    SceneManager.changeScene(
+      new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
+    );
   }
 
   public update(framesPassed: number): void {

@@ -5,7 +5,7 @@ import Stats from "stats.js";
 const gameWidth = 1000;
 const gameHeight = 600;
 
-SceneManager.initialize(gameWidth, gameHeight, 138298);
+SceneManager.initialize(gameWidth, gameHeight, 0xcc6b8e);
 
 const loaderScene: LoaderScene = new LoaderScene();
 SceneManager.changeScene(loaderScene);

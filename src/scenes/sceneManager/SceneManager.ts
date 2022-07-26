@@ -45,6 +45,14 @@ export class SceneManager {
         SceneManager._app.stage.addChild(SceneManager._currentScene);
     }
 
+    public static stop(): void {
+        SceneManager._app.stop();
+    }
+
+    public static start(): void {
+        SceneManager._app.start();
+    }
+
     private static update(framesPassed: number): void {
         if (SceneManager._currentScene) {
             SceneManager._currentScene.update(framesPassed);

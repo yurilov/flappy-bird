@@ -1,4 +1,4 @@
-import { Container, Loader } from "pixi.js";
+import { Container, Loader, Sprite } from "pixi.js";
 import { SceneManager, IScene } from "../sceneManager/SceneManager";
 import { Background } from "./background/Background";
 import { Bird } from "./bird/Bird";
@@ -54,6 +54,7 @@ export class GameScene extends Container implements IScene {
         this._background.update(delta);
         this._bird.updateBird();
         this._pipes.update(delta);
+        this.onBirdCollision();
     }
 
     public updateScoreByOne() {
@@ -66,5 +67,26 @@ export class GameScene extends Container implements IScene {
         this.addChild(this._bird);
         this.addChild(this._pipes);
         this.addChild(this._ui);
+    }
+
+    private onBirdCollision(): void {
+        const pipes = this._pipes.pipesSprites;
+
+        for (let i = 0; i < pipes.length; i++) {
+            const bird = this._bird;
+            const damaged = this.checkCollision(bird, pipes[i]);
+            if (damaged) {
+                console.log("damaged");
+                SceneManager.stop();
+                this._ui.showLoseScreen();
+            }
+        }
+    }
+
+    private checkCollision(firstObj: Sprite, secondObj: Sprite): boolean {
+        const firstObjBounds = firstObj.getBounds();
+        const secondObjBounds = secondObj.getBounds();
+
+        return firstObjBounds.intersects(secondObjBounds);
     }
 }

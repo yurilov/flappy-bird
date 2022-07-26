@@ -33,7 +33,7 @@ export class Bird extends Sprite {
 
     private checkSpace(e: KeyboardEvent) {
         if (e.key === " " && !this._keyPressed) {
-            this._fallSpeed = -7;
+            this._fallSpeed = -4;
             this._keyPressed = true;
         }
     }

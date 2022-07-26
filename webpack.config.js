@@ -43,7 +43,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new PrettierPlugin({
       printWidth: 80,
-      tabWidth: 2,
+      tabWidth: 4,
       useTabs: false,
       semi: true,
       encoding: "utf-8",

@@ -1,0 +1,47 @@
+{"frames": {
+
+"frame-1.png":
+{
+	"frame": {"x":710,"y":1,"w":709,"h":521},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":709,"h":521},
+	"sourceSize": {"w":717,"h":610}
+},
+"frame-2.png":
+{
+	"frame": {"x":1,"y":602,"w":709,"h":521},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":709,"h":521},
+	"sourceSize": {"w":717,"h":610}
+},
+"frame-3.png":
+{
+	"frame": {"x":1,"y":1,"w":707,"h":599},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":6,"w":707,"h":599},
+	"sourceSize": {"w":717,"h":610}
+},
+"frame-4.png":
+{
+	"frame": {"x":524,"y":712,"w":707,"h":553},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":6,"w":707,"h":553},
+	"sourceSize": {"w":717,"h":610}
+}},
+"animations": {
+	"frame": ["frame-1.png","frame-2.png","frame-3.png","frame-4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "bird.png",
+	"format": "RGBA8888",
+	"size": {"w":1232,"h":1312},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:871bb6dd4e82b81cdf1ea962ff98c960:a465ab1be3a5d41500203e434343b2e6:6a1677158d465170d66e062b762d8e2a$"
+}
+}

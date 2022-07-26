@@ -6,18 +6,18 @@ import { Pipes } from "./pipes/Pipes";
 import { UI } from "./ui/UI";
 
 export class GameScene extends Container implements IScene {
+    private _gameWidth: number;
+    private _gameHeight: number;
+    private _ui: UI;
     private _background: Background;
-    private _manager: SceneManager;
-    public gameWidth: number;
-    public gameHeight: number;
     private _bird: Bird;
     private _pipes: Pipes;
-    public ui: UI;
+    protected _manager: SceneManager;
 
     constructor(manager: SceneManager, gameWidth: number, gameHeight: number) {
         super();
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight;
+        this._gameWidth = gameWidth;
+        this._gameHeight = gameHeight;
 
         const envTextures =
             Loader.shared.resources["../../resources/environment.json"]
@@ -26,8 +26,8 @@ export class GameScene extends Container implements IScene {
         const bcgTexture = envTextures["background.png"];
         this._background = new Background(
             bcgTexture,
-            this.gameWidth,
-            this.gameHeight
+            this._gameWidth,
+            this._gameHeight
         );
 
         const birdSheet =
@@ -36,9 +36,18 @@ export class GameScene extends Container implements IScene {
 
         this._pipes = new Pipes(envTextures, this);
 
-        this.ui = new UI(this);
+        this._ui = new UI(this);
+
         this.compose();
         this._manager = manager;
+    }
+
+    public get gameWidth(): number {
+        return this._gameWidth;
+    }
+
+    public get gameHeight(): number {
+        return this._gameHeight;
     }
 
     public update(delta: number): void {
@@ -47,10 +56,15 @@ export class GameScene extends Container implements IScene {
         this._pipes.update(delta);
     }
 
+    public updateScoreByOne() {
+        const currentScore = this._ui.score;
+        this._ui.updateScore(currentScore + 1);
+    }
+
     private compose(): void {
         this.addChild(this._background);
         this.addChild(this._bird);
         this.addChild(this._pipes);
-        this.addChild(this.ui);
+        this.addChild(this._ui);
     }
 }

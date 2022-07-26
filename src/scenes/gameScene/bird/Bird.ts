@@ -25,16 +25,16 @@ export class Bird extends Sprite {
         this.rotation = this._fallSpeed / 50;
     }
 
+    private releaseSpace(e: KeyboardEvent) {
+        if (e.key === " ") {
+            this._keyPressed = false;
+        }
+    }
+
     private checkSpace(e: KeyboardEvent) {
         if (e.key === " " && !this._keyPressed) {
             this._fallSpeed = -7;
             this._keyPressed = true;
-        }
-    }
-
-    private releaseSpace(e: KeyboardEvent) {
-        if (e.key === " ") {
-            this._keyPressed = false;
         }
     }
 }

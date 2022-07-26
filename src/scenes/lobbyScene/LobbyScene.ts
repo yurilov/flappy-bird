@@ -3,14 +3,16 @@ import { TitleStyle } from "../../utils/titleStyle/titleStyle";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 import { StartGameField } from "./startGameField/StartGameField";
 
-export class LobbyScene extends Container implements IScene {
-  startGameField: StartGameField;
-  gameWidth: number;
-  gameHeight: number;
-  style: TitleStyle;
+export class LobbyScene extends Container implements IScene 
+{
+  private startGameField: StartGameField;
+  private gameWidth: number;
+  private gameHeight: number;
+  private style: TitleStyle;
   protected manager: SceneManager;
 
-  constructor(gameWidth: number, gameHeight: number, manager: SceneManager) {
+  constructor(gameWidth: number, gameHeight: number, manager: SceneManager) 
+  {
     super();
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
@@ -25,11 +27,16 @@ export class LobbyScene extends Container implements IScene {
     this.setup();
   }
 
-  private setup(): void {
+  public update()
+  { }
+
+  private setup(): void 
+  {
     const textures =
       Loader.shared.resources["../../resources/environment.json"].textures;
 
-    if (textures) {
+    if (textures) 
+    {
       const backgroundTexture = textures["background.png"];
       const backgroundImg = new Sprite(backgroundTexture);
       this.addChild(backgroundImg);
@@ -37,5 +44,4 @@ export class LobbyScene extends Container implements IScene {
 
     this.addChild(this.startGameField);
   }
-  public update() {}
 }

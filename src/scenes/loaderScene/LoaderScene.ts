@@ -43,6 +43,10 @@ export class LoaderScene extends Container implements IScene {
         Loader.shared.load();
     }
 
+    public update(framesPassed: number): void {
+        framesPassed;
+    }
+
     private downloadProgress(loader: Loader): void {
         const progressRatio = loader.progress / 100;
         this._loaderBarFill.scale.x = progressRatio;
@@ -53,9 +57,5 @@ export class LoaderScene extends Container implements IScene {
             new GameScene(SceneManager, SceneManager.width, SceneManager.height)
             // new LobbyScene(SceneManager.width, SceneManager.height, SceneManager) // will replace GameScene after fix with start game field
         );
-    }
-
-    public update(framesPassed: number): void {
-        framesPassed;
     }
 }

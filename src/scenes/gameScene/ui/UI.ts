@@ -3,8 +3,8 @@ import { GameScene } from "../GameScene";
 
 export class UI extends Container {
     private readonly LOCAL_KEY: string = "hiScore";
-    private _score: number = 0;
-    private _highestScore: number = this.getHighestScore();
+    private _score: number;
+    private _highestScore: number;
     private _scoreField: Text;
     private _highestScoreField: Text;
     private _loseMessageField: Text;
@@ -12,8 +12,10 @@ export class UI extends Container {
 
     constructor(gameScene: GameScene) {
         super();
-
+        this._score = 0;
+        this._highestScore = this.getHighestScore();
         this._gameScene = gameScene;
+
         const style = new TextStyle({
             fontFamily: "Roboto",
             fontSize: 26,
@@ -55,24 +57,22 @@ export class UI extends Container {
         this.compose();
     }
 
-    private compose(): void {
-        this.addChild(this._scoreField);
-        this.addChild(this._highestScoreField);
-        this.addChild(this._loseMessageField);
-    }
-
-    public getScore(): number {
+    public get score(): number {
         return this._score;
     }
 
-    public updateScore(newScore: number): void {
+    public set score(newScore: number) {
         this._score = newScore;
-        this._scoreField.text = `Score: ${this._score}`;
+    }
+
+    public updateScore(newScore: number): void {
+        this.score = newScore;
+        this._scoreField.text = `Score: ${this.score}`;
     }
 
     public showLoseScreen(): void {
-        if (this._score > this._highestScore) {
-            this._highestScore = this._score;
+        if (this.score > this._highestScore) {
+            this._highestScore = this.score;
             this.setHighestScore(this._highestScore);
         }
 
@@ -94,5 +94,10 @@ export class UI extends Container {
 
     public setHighestScore(newRecord: number): void {
         localStorage.setItem(this.LOCAL_KEY, newRecord.toString());
+    }
+
+    private compose(): void {
+        this.addChild(this._scoreField);
+        this.addChild(this._highestScoreField);
     }
 }

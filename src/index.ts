@@ -1,5 +1,5 @@
-import SceneManager from "./scenes/sceneManager/SceneManager";
-import LoaderScene from "./scenes/loaderScene/LoaderScene";
+import { SceneManager } from "./scenes/sceneManager/SceneManager";
+import { LoaderScene } from "./scenes/loaderScene/LoaderScene";
 import Stats from "stats.js";
 
 const gameWidth = 1000;
@@ -15,11 +15,11 @@ stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
 function animate() {
-  stats.begin();
+    stats.begin();
 
-  stats.end();
+    stats.end();
 
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
 
 requestAnimationFrame(animate);

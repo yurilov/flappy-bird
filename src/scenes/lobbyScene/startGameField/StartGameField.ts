@@ -1,7 +1,7 @@
 import { Text } from "pixi.js";
-import TitleStyle from "../../../utils/titleStyle/titleStyle";
+import { TitleStyle } from "../../../utils/titleStyle/titleStyle";
 
-export default class StartGameField extends Text {
+export class StartGameField extends Text {
   private gameWidth: number;
   private gameHeight: number;
 
@@ -14,7 +14,7 @@ export default class StartGameField extends Text {
     this.setup();
   }
 
-  setup(): void {
+  private setup(): void {
     this.interactive = true;
     this.buttonMode = true;
     this.position.x = this.gameWidth / 2 - this.width / 2;

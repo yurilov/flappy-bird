@@ -1,39 +1,47 @@
 import { Container, Resource, Sprite, Texture } from "pixi.js";
-// import GameScene from "../GameScene";
+import { GameScene } from "../GameScene";
 
-export default class Pipes extends Container {
-  //   private gameScene: GameScene;
-  private topPipe: Sprite;
-  private bottomPipe: Sprite;
-  // private passed: bollean = false;
+export class Pipes extends Container {
+    private _gameScene: GameScene;
+    private _topPipe: Sprite;
+    private _bottomPipe: Sprite;
+    private _passed: boolean = false;
 
-  constructor(textures: ITextures) {
-    super();
-    // this.gameScene = gameScene;
+    constructor(textures: ITextures, gameScene: GameScene) {
+        super();
+        this._gameScene = gameScene;
 
-    this.topPipe = new Sprite(textures["pipe-top.png"]);
-    this.bottomPipe = new Sprite(textures["pipe-bottom.png"]);
-    this.compose();
-  }
+        this._topPipe = new Sprite(textures["pipe-top.png"]);
+        this._bottomPipe = new Sprite(textures["pipe-bottom.png"]);
+        this.compose();
+    }
 
-  private compose(): void {
-    this.addChild(this.topPipe);
-    this.addChild(this.bottomPipe);
-    this.resetPosition();
-    this.scale.set(0.5, 0.5);
-  }
+    private compose(): void {
+        this.addChild(this._topPipe);
+        this.addChild(this._bottomPipe);
+        this.resetPosition();
+        this.scale.set(0.5, 0.5);
+    }
 
-  public resetPosition(): void {
-    // let randomY = Math.random() * 250 - 200;
-    this.topPipe.x = 1600;
-    this.bottomPipe.x = 1600;
-    this.topPipe.y = -300;
-    this.bottomPipe.y = 700;
-  }
+    public resetPosition(): void {
+        this._topPipe.x = 1600;
+        this._bottomPipe.x = 1600;
+        this._topPipe.y = -300;
+        this._bottomPipe.y = 700;
+    }
 
-  public update(): void {}
+    public update(delta: number): void {
+        this._topPipe.x -= delta * 2;
+        this._bottomPipe.x -= delta * 2;
+
+        if (this._topPipe.x < 200 && !this._passed) {
+            this._passed = true;
+            const currentScore = this._gameScene.ui.getScore();
+            this._gameScene.ui.updateScore(currentScore + 1);
+        }
+    }
 }
 
 export interface ITextures {
-  [name: string]: Texture<Resource>;
+    [name: string]: Texture<Resource>;
 }

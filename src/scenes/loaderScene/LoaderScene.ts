@@ -1,59 +1,61 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 
-// import LobbyScene from "../lobbyScene/LobbyScene";
-import GameScene from "../gameScene/GameScene";
+// import LobbyScene from "../lobbyScene/LobbyScene"; // will replace GameScene after fix with start game field
+import { GameScene } from "../gameScene/GameScene";
 
-export default class LoaderScene extends Container implements IScene {
-  private loaderBar: Container;
-  private loaderBarBorder: Graphics;
-  private loaderBarFill: Graphics;
-  constructor() {
-    super();
+export class LoaderScene extends Container implements IScene {
+    private _loaderBar: Container;
+    private _loaderBarBorder: Graphics;
+    private _loaderBarFill: Graphics;
 
-    const loaderBarWidth = SceneManager.width * 0.8;
+    constructor() {
+        super();
 
-    this.loaderBarFill = new Graphics();
-    this.loaderBarFill.beginFill(0x008800, 1);
-    this.loaderBarFill.drawRect(0, 0, loaderBarWidth, 50);
-    this.loaderBarFill.endFill();
-    this.loaderBarFill.scale.x = 0;
+        const loaderBarWidth = SceneManager.width * 0.8;
 
-    this.loaderBarBorder = new Graphics();
-    this.loaderBarBorder.lineStyle(10, 0x0, 1);
-    this.loaderBarBorder.drawRect(0, 0, loaderBarWidth, 50);
+        this._loaderBarFill = new Graphics();
+        this._loaderBarFill.beginFill(0x008800, 1);
+        this._loaderBarFill.drawRect(0, 0, loaderBarWidth, 50);
+        this._loaderBarFill.endFill();
+        this._loaderBarFill.scale.x = 0;
 
-    this.loaderBar = new Container();
-    this.loaderBar.addChild(this.loaderBarFill);
-    this.loaderBar.addChild(this.loaderBarBorder);
-    this.loaderBar.position.x = (SceneManager.width - this.loaderBar.width) / 2;
-    this.loaderBar.position.y =
-      (SceneManager.height - this.loaderBar.height) / 2;
-    this.addChild(this.loaderBar);
+        this._loaderBarBorder = new Graphics();
+        this._loaderBarBorder.lineStyle(10, 0x0, 1);
+        this._loaderBarBorder.drawRect(0, 0, loaderBarWidth, 50);
 
-    Loader.shared
-      .add("../../resources/bird.json")
-      .add("../../resources/environment.json");
+        this._loaderBar = new Container();
+        this._loaderBar.addChild(this._loaderBarFill);
+        this._loaderBar.addChild(this._loaderBarBorder);
+        this._loaderBar.position.x =
+            (SceneManager.width - this._loaderBar.width) / 2;
+        this._loaderBar.position.y =
+            (SceneManager.height - this._loaderBar.height) / 2;
+        this.addChild(this._loaderBar);
 
-    Loader.shared.onProgress.add(this.downloadProgress, this);
-    Loader.shared.onComplete.once(this.gameLoaded, this);
+        Loader.shared
+            .add("../../resources/bird.json")
+            .add("../../resources/environment.json");
 
-    Loader.shared.load();
-  }
+        Loader.shared.onProgress.add(this.downloadProgress, this);
+        Loader.shared.onComplete.once(this.gameLoaded, this);
 
-  private downloadProgress(loader: Loader): void {
-    const progressRatio = loader.progress / 100;
-    this.loaderBarFill.scale.x = progressRatio;
-  }
+        Loader.shared.load();
+    }
 
-  private gameLoaded(): void {
-    SceneManager.changeScene(
-      new GameScene(SceneManager, SceneManager.width, SceneManager.height)
-      // new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
-    );
-  }
+    private downloadProgress(loader: Loader): void {
+        const progressRatio = loader.progress / 100;
+        this._loaderBarFill.scale.x = progressRatio;
+    }
 
-  public update(framesPassed: number): void {
-    framesPassed;
-  }
+    private gameLoaded(): void {
+        SceneManager.changeScene(
+            new GameScene(SceneManager, SceneManager.width, SceneManager.height)
+            // new LobbyScene(SceneManager.width, SceneManager.height, SceneManager) // will replace GameScene after fix with start game field
+        );
+    }
+
+    public update(framesPassed: number): void {
+        framesPassed;
+    }
 }

@@ -1,9 +1,9 @@
 import { Container, Loader, Sprite } from "pixi.js";
-import TitleStyle from "../../utils/titleStyle/titleStyle";
+import { TitleStyle } from "../../utils/titleStyle/titleStyle";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
-import StartGameField from "./startGameField/StartGameField";
+import { StartGameField } from "./startGameField/StartGameField";
 
-export default class LobbyScene extends Container implements IScene {
+export class LobbyScene extends Container implements IScene {
   startGameField: StartGameField;
   gameWidth: number;
   gameHeight: number;
@@ -25,7 +25,7 @@ export default class LobbyScene extends Container implements IScene {
     this.setup();
   }
 
-  setup(): void {
+  private setup(): void {
     const textures =
       Loader.shared.resources["../../resources/environment.json"].textures;
 
@@ -37,5 +37,5 @@ export default class LobbyScene extends Container implements IScene {
 
     this.addChild(this.startGameField);
   }
-  update() {}
+  public update() {}
 }

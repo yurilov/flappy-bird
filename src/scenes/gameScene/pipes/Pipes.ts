@@ -16,6 +16,7 @@ export class Pipes extends Container {
 
         this._timeStamp = Date.now();
         this._passedPipesIndexes = [];
+        this.spawnPipesLine();
         this.compose();
     }
 

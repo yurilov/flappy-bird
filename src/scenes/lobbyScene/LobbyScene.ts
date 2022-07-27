@@ -33,7 +33,7 @@ export class LobbyScene extends Container implements IScene
   private setup(): void 
   {
     const textures =
-      Loader.shared.resources["../../resources/environment.json"].textures;
+      Loader.shared.resources["environment"].textures;
 
     if (textures) 
     {

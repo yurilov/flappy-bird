@@ -20,9 +20,7 @@ export class GameScene extends Container implements IScene {
         this._gameWidth = gameWidth;
         this._gameHeight = gameHeight;
 
-        const envTextures =
-            Loader.shared.resources["../../resources/environment.json"]
-                .textures!;
+        const envTextures = Loader.shared.resources["environment"].textures!;
 
         const bcgTexture = envTextures["background.png"];
         this._background = new Background(
@@ -90,8 +88,7 @@ export class GameScene extends Container implements IScene {
     }
 
     private getBirdTextures(): Texture[] {
-        const birdSheet =
-            Loader.shared.resources["../../resources/bird.json"].textures!;
+        const birdSheet = Loader.shared.resources["bird"].textures!;
 
         const animationFrames = birdAtlas.animations.frame;
 

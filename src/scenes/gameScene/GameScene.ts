@@ -1,9 +1,10 @@
-import { Container, Loader, Sprite } from "pixi.js";
+import { Container, Loader, Sprite, Texture } from "pixi.js";
 import { SceneManager, IScene } from "../sceneManager/SceneManager";
 import { Background } from "./background/Background";
 import { Bird } from "./bird/Bird";
 import { Pipes } from "./pipes/Pipes";
 import { UI } from "./ui/UI";
+import birdAtlas from "../../resources/bird.json";
 
 export class GameScene extends Container implements IScene {
     private _gameWidth: number;
@@ -30,9 +31,8 @@ export class GameScene extends Container implements IScene {
             this._gameHeight
         );
 
-        const birdSheet =
-            Loader.shared.resources["../../resources/bird.json"].textures!;
-        this._bird = new Bird(birdSheet["frame-1.png"]);
+        const birdTextures = this.getBirdTextures();
+        this._bird = new Bird(birdTextures);
 
         this._pipes = new Pipes(envTextures, this);
 
@@ -76,7 +76,6 @@ export class GameScene extends Container implements IScene {
             const bird = this._bird;
             const damaged = this.checkCollision(bird, pipes[i]);
             if (damaged) {
-                console.log("damaged");
                 SceneManager.stop();
                 this._ui.showLoseScreen();
             }
@@ -88,5 +87,21 @@ export class GameScene extends Container implements IScene {
         const secondObjBounds = secondObj.getBounds();
 
         return firstObjBounds.intersects(secondObjBounds);
+    }
+
+    private getBirdTextures(): Texture[] {
+        const birdSheet =
+            Loader.shared.resources["../../resources/bird.json"].textures!;
+
+        const animationFrames = birdAtlas.animations.frame;
+
+        let birdTextures = [];
+
+        for (let i = 0; i < animationFrames.length; i++) {
+            const texture = birdSheet[animationFrames[i]];
+            birdTextures.push(texture);
+        }
+
+        return birdTextures;
     }
 }

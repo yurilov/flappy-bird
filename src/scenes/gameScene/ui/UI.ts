@@ -28,7 +28,7 @@ export class UI extends Container {
         this._scoreField.y = 10;
 
         this._highestScoreField = new Text(
-            `Highest score : ${this._highestScore}`,
+            `Highest score: ${this._highestScore}`,
             style
         );
         this._highestScoreField.x =
@@ -73,6 +73,7 @@ export class UI extends Container {
     public showLoseScreen(): void {
         if (this.score > this._highestScore) {
             this._highestScore = this.score;
+            this._highestScoreField.text = `Highest score: ${this._highestScore}`;
             this.setHighestScore(this._highestScore);
         }
 

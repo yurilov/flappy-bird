@@ -1,32 +1,38 @@
-import { futimes } from "fs";
 import { Container, Resource, Sprite, Texture } from "pixi.js";
 import { GameScene } from "../GameScene";
 
 export class Pipes extends Container {
     private _gameScene: GameScene;
-    private _topPipe: Sprite;
-    private _bottomPipe: Sprite;
-    private _passed: boolean;
     private _pipesSprites: Sprite[];
     private _textures: ITextures;
+    private _timeStamp: number;
+    private _passedPipesIndexes: number[];
 
     constructor(textures: ITextures, gameScene: GameScene) {
         super();
         this._textures = textures;
         this._gameScene = gameScene;
-        this._passed = false;
         this._pipesSprites = [];
-        this._topPipe = new Sprite(textures["pipe-top.png"]);
-        this._bottomPipe = new Sprite(textures["pipe-bottom.png"]);
-        this.updatePipesSprites(this._topPipe, this._bottomPipe);
+
+        this._timeStamp = Date.now();
+        this._passedPipesIndexes = [];
         this.compose();
     }
 
-    public resetPosition(): void {
-        this._topPipe.x = 1600;
-        this._bottomPipe.x = 1600;
-        this._topPipe.y = -300;
-        this._bottomPipe.y = 700;
+    public get timeStamp(): number {
+        return this._timeStamp;
+    }
+
+    public set timeStamp(newStamp: number) {
+        this._timeStamp = newStamp;
+    }
+
+    public get passedPipesIndexes(): number[] {
+        return this._passedPipesIndexes;
+    }
+
+    public updatePassedPipesIndexes(passedPipeIndex: number): void {
+        this.passedPipesIndexes.push(passedPipeIndex);
     }
 
     public get pipesSprites() {
@@ -34,41 +40,53 @@ export class Pipes extends Container {
     }
 
     public spawnPipesLine(): void {
-        const topPipeY = randomInteger(-400, 100);
+        const topPipeY = randomInteger(-400, 0);
         const gap = 1000;
         const topPipe = new Sprite(this._textures["pipe-top.png"]);
-        topPipe.x = 1600;
+        topPipe.x = 2000;
         topPipe.y = topPipeY;
         const bottomPipe = new Sprite(this._textures["pipe-bottom.png"]);
-        bottomPipe.x = 1600;
+        bottomPipe.x = 2000;
         bottomPipe.y = topPipeY + gap;
 
         this.updatePipesSprites(topPipe, bottomPipe);
     }
 
     public update(delta: number): void {
-        this._topPipe.x -= delta * 2;
-        this._bottomPipe.x -= delta * 2;
+        const currentTime = Date.now();
+        const timePassed = currentTime - this.timeStamp;
 
-        if (this._topPipe.x < 200 && !this._passed) {
-            this._passed = true;
-            this._gameScene.updateScoreByOne();
-        }
+        this._pipesSprites.forEach((pipe) => {
+            pipe.x -= delta * 2;
+        });
 
-        if (this._topPipe.x % 300 === 0) {
+        this.checkIfBirdPassedPipeLine();
+
+        if (timePassed >= 5000) {
             this.spawnPipesLine();
+            this.timeStamp = currentTime;
         }
     }
 
-    private updatePipesSprites(topPipe: Sprite, bottomPipe: Sprite) {
+    private checkIfBirdPassedPipeLine(): void {
+        const pipesSprites = this.pipesSprites;
+
+        for (let index = 0; index < pipesSprites.length; index += 2) {
+            const pipe = pipesSprites[index];
+
+            if (pipe.x <= 200 && !this.passedPipesIndexes.includes(index)) {
+                this._gameScene.updateScoreByOne();
+                this.updatePassedPipesIndexes(index);
+            }
+        }
+    }
+
+    private updatePipesSprites(topPipe: Sprite, bottomPipe: Sprite): void {
         this._pipesSprites.push(topPipe, bottomPipe);
         this.addChild(topPipe, bottomPipe);
     }
 
     private compose(): void {
-        this.addChild(this._topPipe);
-        this.addChild(this._bottomPipe);
-        this.resetPosition();
         this.scale.set(0.5, 0.5);
     }
 }

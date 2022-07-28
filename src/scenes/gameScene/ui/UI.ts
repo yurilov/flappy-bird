@@ -20,7 +20,7 @@ export class UI extends Container {
             fontFamily: "Roboto",
             fontSize: 26,
             fontWeight: "bold",
-            fill: ["#4F455D"],
+            fill: ["#ffffff  "],
         });
 
         this._scoreField = new Text("Score: 0", style);
@@ -35,19 +35,19 @@ export class UI extends Container {
             this._gameScene.gameWidth - this._highestScoreField.width - 10;
         this._highestScoreField.y = 10;
 
-        const loseFieldStyle = new TextStyle({
+        const titleStyle = new TextStyle({
             fontFamily: "Roboto",
             fontSize: 55,
             align: "center",
             fontWeight: "bold",
-            fill: ["#4F455D "],
+            fill: ["#4F455D"],
             wordWrap: true,
             wordWrapWidth: 400,
         });
 
         this._loseMessageField = new Text(
             "GAME OVER press spacebar to restart the game",
-            loseFieldStyle
+            titleStyle
         );
         this._loseMessageField.x =
             this._gameScene.gameWidth / 2 - this._loseMessageField.width / 2;

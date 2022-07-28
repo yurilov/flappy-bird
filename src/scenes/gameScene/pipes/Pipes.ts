@@ -16,7 +16,6 @@ export class Pipes extends Container {
 
         this._timeStamp = Date.now();
         this._passedPipesIndexes = [];
-        this.spawnPipesLine();
         this.compose();
     }
 
@@ -69,6 +68,16 @@ export class Pipes extends Container {
         }
     }
 
+    public onGameEnd(): void {
+        const numberOfChildren = this.children.length;
+        this._pipesSprites = [];
+        this.removeChildren(0, numberOfChildren);
+    }
+
+    public onGameRestart(): void {
+        this.spawnPipesLine();
+    }
+
     private checkIfBirdPassedPipeLine(): void {
         const pipesSprites = this.pipesSprites;
 
@@ -89,6 +98,7 @@ export class Pipes extends Container {
 
     private compose(): void {
         this.scale.set(0.5, 0.5);
+        this.spawnPipesLine();
     }
 }
 

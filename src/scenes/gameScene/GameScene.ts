@@ -118,7 +118,7 @@ export class GameScene extends Container implements IScene {
         }
     };
 
-    private handleEscape = (e: KeyboardEvent) => {
+    private handleEscape = (e: KeyboardEvent): void => {
         if (e.code === "Escape") {
             if (!this.paused) {
                 SceneManager.stop();

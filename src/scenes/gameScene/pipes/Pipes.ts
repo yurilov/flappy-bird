@@ -71,6 +71,7 @@ export class Pipes extends Container {
     public onGameEnd(): void {
         const numberOfChildren = this.children.length;
         this._pipesSprites = [];
+        this._passedPipesIndexes = [];
         this.removeChildren(0, numberOfChildren);
     }
 

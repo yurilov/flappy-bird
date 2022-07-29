@@ -38,14 +38,14 @@ export class Bird extends AnimatedSprite {
         window.removeEventListener("keyup", this.releaseSpace);
     }
 
-    private releaseSpace = (e: KeyboardEvent):void => {
+    private releaseSpace = (e: KeyboardEvent): void => {
         if (e.key === " ") {
             this.animationSpeed = 0.1;
             this._keyPressed = false;
         }
     };
 
-    private checkSpace = (e: KeyboardEvent):void => {
+    private checkSpace = (e: KeyboardEvent): void => {
         if (e.key === " " && !this._keyPressed) {
             this._fallSpeed = -3;
             this.animationSpeed = 0.3;

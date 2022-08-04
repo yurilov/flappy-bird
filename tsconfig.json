@@ -10,7 +10,7 @@
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noUnusedParameters": true,
-        "noUnusedLocals": true,
+        // "noUnusedLocals": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitOverride": true,
         // Settings for linking source files
@@ -23,5 +23,5 @@
     // Folder for your code
     "include": [
         "./src/**/*"
-, ".vscode/unused/App.ts"    ]
+    ]
 }

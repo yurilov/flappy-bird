@@ -1,17 +1,17 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 import { assets } from "../../assets";
-// import LobbyScene from "../lobbyScene/LobbyScene"; // will replace GameScene after fix with start game field
-import { GameScene } from "../gameScene/GameScene";
+import { LobbyScene } from "../lobbyScene/LobbyScene";
 
 export class LoaderScene extends Container implements IScene {
     private _loaderBar: Container;
     private _loaderBarBorder: Graphics;
     private _loaderBarFill: Graphics;
+    private _manager: SceneManager;
 
-    constructor() {
+    constructor(manager: SceneManager) {
         super();
-
+        this._manager = manager;
         const loaderBarWidth = SceneManager.width * 0.8;
 
         this._loaderBarFill = new Graphics();
@@ -41,8 +41,7 @@ export class LoaderScene extends Container implements IScene {
         Loader.shared.load();
     }
 
-    public update(framesPassed: number): void {
-        framesPassed;
+    public update(): void {
     }
 
     private downloadProgress(loader: Loader): void {
@@ -52,8 +51,7 @@ export class LoaderScene extends Container implements IScene {
 
     private gameLoaded(): void {
         SceneManager.changeScene(
-            new GameScene(SceneManager, SceneManager.width, SceneManager.height)
-            // new LobbyScene(SceneManager.width, SceneManager.height, SceneManager) // will replace GameScene after fix with start game field
+            new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
         );
     }
 }

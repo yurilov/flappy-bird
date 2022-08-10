@@ -1,10 +1,7 @@
-import { SceneManager } from "./scenes/sceneManager/SceneManager";
+import { config } from "./config/config";
 import { LoaderScene } from "./scenes/loaderScene/LoaderScene";
+import { SceneManager } from "./scenes/sceneManager/SceneManager";
+const { gameHeight, gameWidth, backgroundColor } = config;
 
-const gameWidth = 1000;
-const gameHeight = 600;
-
-SceneManager.initialize(gameWidth, gameHeight, 0xcc6b8e);
-
-const loaderScene: LoaderScene = new LoaderScene();
-SceneManager.changeScene(loaderScene);
+SceneManager.initialize(gameWidth, gameHeight, backgroundColor);
+SceneManager.changeScene(new LoaderScene(SceneManager));

@@ -2,6 +2,7 @@ import { Container, Loader, Sprite } from "pixi.js";
 import { TitleStyle } from "../../utils/titleStyle/titleStyle";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 import { StartGameField } from "./startGameField/StartGameField";
+import { GameScene } from "../gameScene/GameScene";
 
 export class LobbyScene extends Container implements IScene 
 {
@@ -25,6 +26,9 @@ export class LobbyScene extends Container implements IScene
 
     this.manager = manager;
     this.setup();
+    this.startGameField.addListener('click', () => {
+      SceneManager.changeScene(new GameScene(SceneManager, SceneManager.width, SceneManager.height))
+    })
   }
 
   public update()

@@ -48,7 +48,7 @@ export class Bird extends AnimatedSprite {
     private checkSpace = (e: KeyboardEvent): void => {
         if (e.key === " " && !this._keyPressed) {
             this._fallSpeed = -3;
-            this.animationSpeed = 0.3;
+            this.animationSpeed = 0.1;
             this._keyPressed = true;
         }
     };

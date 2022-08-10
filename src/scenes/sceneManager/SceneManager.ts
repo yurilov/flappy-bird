@@ -1,7 +1,8 @@
 import { Application } from "@pixi/app";
 import { DisplayObject } from "@pixi/display";
 
-export class SceneManager {
+export class SceneManager
+{
     private static _app: Application;
     private static _currentScene: IScene;
     private static _width: number;
@@ -16,9 +17,9 @@ export class SceneManager {
     }
 
     public static initialize(
-        width: number,
-        height: number,
-        background: number
+      width: number,
+      height: number,
+      background: number
     ): void {
         SceneManager._width = width;
         SceneManager._height = height;

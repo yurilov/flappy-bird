@@ -8,12 +8,12 @@ import birdAtlas from "../../resources/bird.json";
 import { PauseScreen } from "./pauseScreen/PauseScreen";
 
 export class GameScene extends Container implements IScene {
+    private _pipes: Pipes;
     private _gameWidth: number;
     private _gameHeight: number;
     private _ui: UI;
     private _background: Background;
     private _bird: Bird;
-    private _pipes: Pipes;
     private _paused: boolean;
     private _pauseScreen: PauseScreen;
     protected _manager: SceneManager;
@@ -153,7 +153,8 @@ export class GameScene extends Container implements IScene {
 
         let birdTextures = [];
 
-        for (let i = 0; i < animationFrames.length; i++) {
+        for (let i = 0; i < animationFrames.length; i++)
+        {
             const texture = birdSheet[animationFrames[i]];
             birdTextures.push(texture);
         }

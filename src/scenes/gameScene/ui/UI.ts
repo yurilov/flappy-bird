@@ -1,7 +1,8 @@
 import { Container, Text, TextStyle } from "pixi.js";
 import { GameScene } from "../GameScene";
 
-export class UI extends Container {
+export class UI extends Container
+{
     private readonly LOCAL_KEY: string = "hiScore";
     private _score: number;
     private _highestScore: number;
@@ -10,7 +11,8 @@ export class UI extends Container {
     private _loseMessageField: Text;
     private _gameScene: GameScene;
 
-    constructor(gameScene: GameScene) {
+    constructor(gameScene: GameScene)
+    {
         super();
         this._score = 0;
         this._highestScore = this.getHighestScore();
@@ -57,21 +59,25 @@ export class UI extends Container {
         this.compose();
     }
 
-    public get score(): number {
+    public get score(): number
+    {
         return this._score;
     }
 
-    public set score(newScore: number) {
+    public set score(newScore: number)
+    {
         this._score = newScore;
     }
 
-    public updateScore(newScore: number): void {
+    public updateScore(newScore: number): void
+    {
         this.score = newScore;
         this._scoreField.text = `Score: ${this.score}`;
     }
 
     public showLoseScreen(): void {
-        if (this.score > this._highestScore) {
+        if (this.score > this._highestScore)
+        {
             this._highestScore = this.score;
             this._highestScoreField.text = `Highest score: ${this._highestScore}`;
             this.setHighestScore(this._highestScore);
@@ -80,12 +86,14 @@ export class UI extends Container {
         this.addChild(this._loseMessageField);
     }
 
-    public onGameRestart(): void {
+    public onGameRestart(): void
+    {
         this.updateScore(0);
         this.removeChild(this._loseMessageField);
     }
 
-    public getHighestScore(): number {
+    public getHighestScore(): number
+    {
         const localData = localStorage.getItem(this.LOCAL_KEY);
 
         if (!localData) return 0;
@@ -93,11 +101,13 @@ export class UI extends Container {
         return Number(JSON.parse(localData));
     }
 
-    public setHighestScore(newRecord: number): void {
+    public setHighestScore(newRecord: number): void
+    {
         localStorage.setItem(this.LOCAL_KEY, newRecord.toString());
     }
 
-    private compose(): void {
+    private compose(): void
+    {
         this.addChild(this._scoreField);
         this.addChild(this._highestScoreField);
     }

@@ -1,11 +1,13 @@
 import { Container, TextStyle, Text } from "pixi.js";
 import { GameScene } from "../GameScene";
 
-export class PauseScreen extends Container {
+export class PauseScreen extends Container
+{
     private _pauseMessage: Text;
     private _gameScene: GameScene;
 
-    constructor(gameScene: GameScene) {
+    constructor(gameScene: GameScene)
+    {
         super();
         this._gameScene = gameScene;
 

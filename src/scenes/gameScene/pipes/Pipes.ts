@@ -1,14 +1,16 @@
 import { Container, Resource, Sprite, Texture } from "pixi.js";
 import { GameScene } from "../GameScene";
 
-export class Pipes extends Container {
+export class Pipes extends Container
+{
     private _gameScene: GameScene;
     private _pipesSprites: Sprite[];
     private _textures: ITextures;
     private _timeStamp: number;
     private _passedPipesIndexes: number[];
 
-    constructor(textures: ITextures, gameScene: GameScene) {
+    constructor(textures: ITextures, gameScene: GameScene)
+    {
         super();
         this._textures = textures;
         this._gameScene = gameScene;
@@ -19,27 +21,33 @@ export class Pipes extends Container {
         this.compose();
     }
 
-    public get timeStamp(): number {
+    public get timeStamp(): number
+    {
         return this._timeStamp;
     }
 
-    public set timeStamp(newStamp: number) {
+    public set timeStamp(newStamp: number)
+    {
         this._timeStamp = newStamp;
     }
 
-    public get passedPipesIndexes(): number[] {
+    public get passedPipesIndexes(): number[]
+    {
         return this._passedPipesIndexes;
     }
 
-    public updatePassedPipesIndexes(passedPipeIndex: number): void {
+    public updatePassedPipesIndexes(passedPipeIndex: number): void
+    {
         this.passedPipesIndexes.push(passedPipeIndex);
     }
 
-    public get pipesSprites() {
+    public get pipesSprites()
+    {
         return this._pipesSprites;
     }
 
-    public spawnPipesLine(): void {
+    public spawnPipesLine(): void
+    {
         const topPipeY = randomInteger(-400, 0);
         const gap = 1000;
         const topPipe = new Sprite(this._textures["pipe-top.png"]);
@@ -52,7 +60,8 @@ export class Pipes extends Container {
         this.updatePipesSprites(topPipe, bottomPipe);
     }
 
-    public update(delta: number): void {
+    public update(delta: number): void
+    {
         const currentTime = Date.now();
         const timePassed = currentTime - this.timeStamp;
 
@@ -68,46 +77,55 @@ export class Pipes extends Container {
         }
     }
 
-    public onGameEnd(): void {
+    public onGameEnd(): void
+    {
         const numberOfChildren = this.children.length;
         this._pipesSprites = [];
         this._passedPipesIndexes = [];
         this.removeChildren(0, numberOfChildren);
     }
 
-    public onGameRestart(): void {
+    public onGameRestart(): void
+    {
         this.spawnPipesLine();
     }
 
-    private checkIfBirdPassedPipeLine(): void {
+    private checkIfBirdPassedPipeLine(): void
+    {
         const pipesSprites = this.pipesSprites;
 
-        for (let index = 0; index < pipesSprites.length; index += 2) {
+        for (let index = 0; index < pipesSprites.length; index += 2)
+        {
             const pipe = pipesSprites[index];
 
-            if (pipe.x <= 200 && !this.passedPipesIndexes.includes(index)) {
+            if (pipe.x <= 200 && !this.passedPipesIndexes.includes(index))
+            {
                 this._gameScene.updateScoreByOne();
                 this.updatePassedPipesIndexes(index);
             }
         }
     }
 
-    private updatePipesSprites(topPipe: Sprite, bottomPipe: Sprite): void {
+    private updatePipesSprites(topPipe: Sprite, bottomPipe: Sprite): void
+    {
         this._pipesSprites.push(topPipe, bottomPipe);
         this.addChild(topPipe, bottomPipe);
     }
 
-    private compose(): void {
+    private compose(): void
+    {
         this.scale.set(0.5, 0.5);
         this.spawnPipesLine();
     }
 }
 
-export interface ITextures {
+export interface ITextures
+{
     [name: string]: Texture<Resource>;
 }
 
-function randomInteger(min: number, max: number): number {
+function randomInteger(min: number, max: number): number
+{
     const rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }

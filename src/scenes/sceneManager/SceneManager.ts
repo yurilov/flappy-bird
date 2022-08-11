@@ -8,11 +8,13 @@ export class SceneManager
     private static _width: number;
     private static _height: number;
 
-    public static get width(): number {
+    public static get width(): number
+    {
         return SceneManager._width;
     }
 
-    public static get height(): number {
+    public static get height(): number
+    {
         return SceneManager._height;
     }
 
@@ -20,7 +22,8 @@ export class SceneManager
       width: number,
       height: number,
       background: number
-    ): void {
+    ): void
+    {
         SceneManager._width = width;
         SceneManager._height = height;
 
@@ -36,7 +39,8 @@ export class SceneManager
         SceneManager._app.ticker.add(SceneManager.update);
     }
 
-    public static changeScene(newScene: IScene): void {
+    public static changeScene(newScene: IScene): void
+    {
         if (SceneManager._currentScene) {
             SceneManager._app.stage.removeChild(SceneManager._currentScene);
             SceneManager._currentScene.destroy();
@@ -46,21 +50,25 @@ export class SceneManager
         SceneManager._app.stage.addChild(SceneManager._currentScene);
     }
 
-    public static stop(): void {
+    public static stop(): void
+    {
         SceneManager._app.stop();
     }
 
-    public static start(): void {
+    public static start(): void
+    {
         SceneManager._app.start();
     }
 
-    private static update(framesPassed: number): void {
+    private static update(framesPassed: number): void
+    {
         if (SceneManager._currentScene) {
             SceneManager._currentScene.update(framesPassed);
         }
     }
 }
 
-export interface IScene extends DisplayObject {
+export interface IScene extends DisplayObject
+{
     update(framesPassed: number): void;
 }

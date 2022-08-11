@@ -6,13 +6,15 @@ import { expect } from 'chai';
 _chai.should();
 _chai.expect;
 
-@suite class SceneManagerTest {
+@suite class SceneManagerTest
+{
     private SUT: SceneManager;
     private width: number;
     private height: number;
     private backgroundColor: number;
 
-    before() {
+    before()
+    {
         this.width = 1000;
         this.height = 600;
         this.backgroundColor = 0xcc6b8e;
@@ -20,11 +22,13 @@ _chai.expect;
         this.SUT = SceneManager
     }
 
-    @test 'SceneManager has instance' () {
+    @test 'SceneManager has instance' ()
+    {
         expect(this.SUT).to.be.equal(SceneManager);
     }
 
-    @test "SceneManager has width" () {
+    @test "SceneManager has width" ()
+    {
         expect(SceneManager.width).to.be.equal(this.width)
     }
 }

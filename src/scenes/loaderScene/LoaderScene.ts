@@ -9,7 +9,8 @@ export class LoaderScene extends Container implements IScene {
     private _loaderBarFill: Graphics;
     private _manager: SceneManager;
 
-    constructor(manager: SceneManager) {
+    constructor(manager: SceneManager)
+    {
         super();
         this._manager = manager;
         const loaderBarWidth = SceneManager.width * 0.8;
@@ -41,15 +42,17 @@ export class LoaderScene extends Container implements IScene {
         Loader.shared.load();
     }
 
-    public update(): void {
-    }
+    public update(): void
+    { }
 
-    private downloadProgress(loader: Loader): void {
+    private downloadProgress(loader: Loader): void
+    {
         const progressRatio = loader.progress / 100;
         this._loaderBarFill.scale.x = progressRatio;
     }
 
-    private gameLoaded(): void {
+    private gameLoaded(): void
+    {
         SceneManager.changeScene(
             new LobbyScene(SceneManager.width, SceneManager.height, SceneManager)
         );

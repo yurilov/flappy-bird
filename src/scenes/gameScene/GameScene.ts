@@ -4,10 +4,11 @@ import { Background } from "./background/Background";
 import { Bird } from "./bird/Bird";
 import { Pipes } from "./pipes/Pipes";
 import { UI } from "./ui/UI";
-import birdAtlas from "../../resources/bird.json";
+import birdAtlas from "../../../resources/bird.json";
 import { PauseScreen } from "./pauseScreen/PauseScreen";
 
-export class GameScene extends Container implements IScene {
+export class GameScene extends Container implements IScene
+{
     private _pipes: Pipes;
     private _gameWidth: number;
     private _gameHeight: number;
@@ -18,7 +19,8 @@ export class GameScene extends Container implements IScene {
     private _pauseScreen: PauseScreen;
     protected _manager: SceneManager;
 
-    constructor(manager: SceneManager, gameWidth: number, gameHeight: number) {
+    constructor(manager: SceneManager, gameWidth: number, gameHeight: number)
+    {
         super();
         this._gameWidth = gameWidth;
         this._gameHeight = gameHeight;
@@ -49,51 +51,61 @@ export class GameScene extends Container implements IScene {
         this._manager = manager;
     }
 
-    public get gameWidth(): number {
+    public get gameWidth(): number
+    {
         return this._gameWidth;
     }
 
-    public get gameHeight(): number {
+    public get gameHeight(): number
+    {
         return this._gameHeight;
     }
 
-    public get paused(): boolean {
+    public get paused(): boolean
+    {
         return this._paused;
     }
 
-    public set paused(newValue: boolean) {
+    public set paused(newValue: boolean)
+    {
         this._paused = newValue;
     }
 
-    public update(delta: number): void {
+    public update(delta: number): void
+    {
         this._background.update(delta);
         this._bird.updateBird();
         this._pipes.update(delta);
         this.onBirdCollision();
     }
 
-    public updateScoreByOne() {
+    public updateScoreByOne()
+    {
         const currentScore = this._ui.score;
         this._ui.updateScore(currentScore + 1);
     }
 
-    private compose(): void {
+    private compose(): void
+    {
         this.addChild(this._background);
         this.addChild(this._bird);
         this.addChild(this._pipes);
         this.addChild(this._ui);
     }
 
-    private onBirdCollision(): void {
+    private onBirdCollision(): void
+    {
         const pipes = this._pipes.pipesSprites;
 
-        for (let i = 0; i < pipes.length; i++) {
+        for (let i = 0; i < pipes.length; i++)
+        {
             const bird = this._bird;
             const damaged =
                 this.checkCollision(bird, pipes[i]) ||
                 this.checkIfBirdOutOfScene();
 
-            if (damaged) {
+            if (damaged)
+            {
                 SceneManager.stop();
                 this._bird.removeListenerFromWindow();
                 this._ui.showLoseScreen();
@@ -108,8 +120,10 @@ export class GameScene extends Container implements IScene {
         }
     }
 
-    private restartGame = (e: KeyboardEvent): void => {
-        if (e.key === " ") {
+    private restartGame = (e: KeyboardEvent): void =>
+    {
+        if (e.key === " ")
+        {
             SceneManager.start();
             this._bird.resetBird();
             this._ui.onGameRestart();
@@ -118,12 +132,15 @@ export class GameScene extends Container implements IScene {
         }
     };
 
-    private handleEscape = (e: KeyboardEvent): void => {
+    private handleEscape = (e: KeyboardEvent): void =>
+    {
         if (e.code === "Escape") {
-            if (!this.paused) {
+            if (!this.paused)
+            {
                 SceneManager.stop();
                 this.paused = true;
-            } else {
+            } else
+            {
                 SceneManager.start();
                 this._pipes.timeStamp = Date.now();
                 this.paused = false;
@@ -131,14 +148,16 @@ export class GameScene extends Container implements IScene {
         }
     };
 
-    private checkCollision(firstObj: Sprite, secondObj: Sprite): boolean {
+    private checkCollision(firstObj: Sprite, secondObj: Sprite): boolean
+    {
         const firstObjBounds = firstObj.getBounds();
         const secondObjBounds = secondObj.getBounds();
 
         return firstObjBounds.intersects(secondObjBounds);
     }
 
-    private checkIfBirdOutOfScene(): boolean {
+    private checkIfBirdOutOfScene(): boolean
+    {
         const birdPositionY = this._bird.y;
 
         if (birdPositionY >= this.gameHeight || birdPositionY <= 0) return true;
@@ -146,7 +165,8 @@ export class GameScene extends Container implements IScene {
         return false;
     }
 
-    private getBirdTextures(): Texture[] {
+    private getBirdTextures(): Texture[]
+    {
         const birdSheet = Loader.shared.resources["bird"].textures!;
 
         const animationFrames = birdAtlas.animations.frame;

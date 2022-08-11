@@ -30,7 +30,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, "src", "resources"),
+          from: path.resolve(__dirname, "resources"),
           to: path.resolve(__dirname, "dist", "resources"),
         },
         {

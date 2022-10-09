@@ -2,11 +2,10 @@ import { TextStyle } from "pixi.js";
 
 export class TitleStyle extends TextStyle
 {
-  constructor(gameWidth: number)
-  {
+  constructor(gameWidth: number) {
     super({
       fontFamily: "Roboto",
-      fill: "#FFFFFF",
+      fill: "#FFF",
       fontSize: 36,
       wordWrap: true,
       wordWrapWidth: gameWidth / 2 - 100,

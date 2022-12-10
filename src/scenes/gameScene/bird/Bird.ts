@@ -10,10 +10,10 @@ export class Bird extends AnimatedSprite
         super(textures);
 
         this._keyPressed = false;
-        this._fallSpeed = 0.1;
+        this._fallSpeed = 28;
         this.scale.set(0.1, 0.1);
         this.resetBird();
-        this.animationSpeed = 0.1;
+        this.animationSpeed = 0.4;
     }
 
     public resetBird(): void
@@ -26,7 +26,7 @@ export class Bird extends AnimatedSprite
 
     public updateBird(): void
     {
-        this._fallSpeed += 0.15;
+        this._fallSpeed += 0.25;
         this.y += this._fallSpeed;
         this.rotation = this._fallSpeed / 50;
         this.play();
@@ -47,7 +47,7 @@ export class Bird extends AnimatedSprite
     private releaseSpace = (e: KeyboardEvent): void =>
     {
         if (e.key === " ") {
-            this.animationSpeed = 0.1;
+            this.animationSpeed = 0.4;
             this._keyPressed = false;
         }
     };
@@ -56,7 +56,7 @@ export class Bird extends AnimatedSprite
     {
         if (e.key === " " && !this._keyPressed) {
             this._fallSpeed = -3;
-            this.animationSpeed = 0.1;
+            this.animationSpeed = 0.4;
             this._keyPressed = true;
         }
     };

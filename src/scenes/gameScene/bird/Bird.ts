@@ -13,7 +13,7 @@ export class Bird extends AnimatedSprite
         this._fallSpeed = 28;
         this.scale.set(0.1, 0.1);
         this.resetBird();
-        this.animationSpeed = 28;
+        this.animationSpeed = 0.4;
     }
 
     public resetBird(): void
@@ -47,7 +47,7 @@ export class Bird extends AnimatedSprite
     private releaseSpace = (e: KeyboardEvent): void =>
     {
         if (e.key === " ") {
-            this.animationSpeed = 1.8;
+            this.animationSpeed = 0.4;
             this._keyPressed = false;
         }
     };
@@ -56,7 +56,7 @@ export class Bird extends AnimatedSprite
     {
         if (e.key === " " && !this._keyPressed) {
             this._fallSpeed = -3;
-            this.animationSpeed = 1.8;
+            this.animationSpeed = 0.4;
             this._keyPressed = true;
         }
     };

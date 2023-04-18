@@ -1,0 +1,16 @@
+{
+    "previews": [
+        {
+            "command": [
+                "npm",
+                "run",
+                "start",
+                "--",
+                "--port",
+                "$PORT"
+            ],
+            "id": "web",
+            "manager": "web"
+        }
+    ]
+}
